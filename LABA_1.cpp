@@ -17,8 +17,10 @@ private:
 public:
     // Конструкторы
     Blog() : name(""), creationDate(""), author(""), theme(""), bloggerDescription(""), subscribersCount(0) {}
+
     Blog(string name, string creationDate, string author, string theme, string bloggerDescription, int subscribersCount)
         : name(name), creationDate(creationDate), author(author), theme(theme), bloggerDescription(bloggerDescription), subscribersCount(subscribersCount) {}
+
     Blog(const Blog& other)
         : name(other.name), creationDate(other.creationDate), author(other.author), theme(other.theme), bloggerDescription(other.bloggerDescription), subscribersCount(other.subscribersCount) {}
     ~Blog() {}
@@ -34,23 +36,33 @@ public:
     // Методы поиска
     vector<Blog> findByTheme(const string& theme) const;
     Blog findOldest() const;
+    Blog findNewest() const;
 };
 
 // Метод поиска блогов определенной тематики
-vector<Blog> Blog::findByTheme(const string& theme) const {
+vector<Blog> Blog::findByTheme(const string& theme) const 
+{
     vector<Blog> foundBlogs;
-    if (theme == this->theme) {
+    if (theme == this->theme) 
+    {
         foundBlogs.push_back(*this);
     }
     return foundBlogs;
 }
 
 // Метод поиска самого старого блога
-Blog Blog::findOldest() const {
+Blog Blog::findOldest() const 
+{
     return *this;
 }
 
-int HeadFunction_1() {
+Blog Blog::findNewest() const 
+{
+    return *this;
+}
+
+int HeadFunction_1() 
+{
     vector<Blog> blogs;
     string name, creationDate, author, theme, bloggerDescription;
     int subscribersCount;
@@ -59,7 +71,8 @@ int HeadFunction_1() {
     cout << "Enter the number of blogs: ";
     cin >> numBlogs;
 
-    for (int i = 0; i < numBlogs; ++i) {
+    for (int i = 0; i < numBlogs; ++i) 
+    {
         cout << "Enter name of blog " << i + 1 << ": ";
         cin.ignore();
         getline(cin, name);
@@ -90,32 +103,52 @@ int HeadFunction_1() {
     getline(cin, searchTheme);
 
     vector<Blog> foundBlogs;
-    for (const Blog& blog : blogs) {
+    for (const Blog& blog : blogs) 
+    {
         vector<Blog> result = blog.findByTheme(searchTheme);
         foundBlogs.insert(foundBlogs.end(), result.begin(), result.end());
     }
 
     if (!foundBlogs.empty()) {
         cout << "\nBlogs found with theme \"" << searchTheme << "\":" << endl;
-        for (const Blog& blog : foundBlogs) {
+        for (const Blog& blog : foundBlogs)
+        {
             cout << "Name: " << blog.getName() << ", Author: " << blog.getAuthor() << ", Creation Date: " << blog.getCreationDate() << endl;
         }
     }
-    else {
+    else 
+    {
         cout << "\nNo blogs found with theme \"" << searchTheme << "\"." << endl;
     }
 
-    // Поиск самого старого блога
-    Blog oldestBlog = blogs[0].findOldest();
-    for (size_t i = 1; i < blogs.size(); ++i) {
-        Blog currentOldest = blogs[i].findOldest();
-        if (currentOldest.getCreationDate() < oldestBlog.getCreationDate()) {
-            oldestBlog = currentOldest;
+    // Поиск самого старого блога и самого нового
+    if (numBlogs > 1)
+    {
+        Blog oldestBlog = blogs[0].findOldest();
+        for (int i = 1; i < blogs.size(); ++i) 
+        {
+            Blog currentOldest = blogs[i].findOldest();
+            if (currentOldest.getCreationDate() < oldestBlog.getCreationDate())
+            {
+                oldestBlog = currentOldest;
+            }
         }
-    }
 
-    cout << "\nOldest blog:" << endl;
-    cout << "Name: " << oldestBlog.getName() << ", Author: " << oldestBlog.getAuthor() << ", Creation Date: " << oldestBlog.getCreationDate() << endl;
+        cout << "\nOldest blog:" << endl;
+        cout << "Name: " << oldestBlog.getName() << ", Author: " << oldestBlog.getAuthor() << ", Creation Date: " << oldestBlog.getCreationDate() << endl;
+
+        Blog newestBlog = blogs[0].findNewest();
+        for (int i = 1; i < blogs.size(); ++i)
+        {
+            Blog currentNewest = blogs[i].findNewest();
+            if (currentNewest.getCreationDate() > newestBlog.getCreationDate()) 
+            {
+                newestBlog = currentNewest;
+            }
+        }
+        cout << "\nNewest blog:" << endl;
+        cout << "Name: " << newestBlog.getName() << ", Author: " << newestBlog.getAuthor() << ", Creation Date: " << newestBlog.getCreationDate() << endl;
+    }
 
     return 0;
 }

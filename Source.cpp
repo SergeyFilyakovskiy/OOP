@@ -10,7 +10,8 @@ int main()
 	do
 	{
 		std::cout << "~~~~~~~~~~~~~Меню:~~~~~~~~~~~~~\n" << "1. Лабораторная работа 1\n2. Лабораторная работа 2\n";
-		std::cout << "3. Лабораторная работа 3\n4. Лабораторная работа 4\n" << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+		std::cout << "3. Лабораторная работа 3\n4. Лабораторная работа 4\n" << "5. Лабораторная работа 5\n";
+		std::cout << "6. Лабораторная работа 6\n7. Лабораторная работа 7\n8. Лабораторная работа 8\n" << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 		std::cin >> Task_Number;
 		switch (Task_Number)
 		{
@@ -19,17 +20,37 @@ int main()
 				break;
 
 			case(2):
+				HeadFunction_2();
 				break;
 
 			case(3):
+				HeadFunction_3();
 				break;
 
 			case(4):
+
 				break;
+
+			case(5):
+
+				break;
+
+			case(6):
+
+				break;
+
+			case(7):
+
+				break;
+
+			case(8):
+
+				break;
+
 			default:
 				break;
 		}
-	} while (Task_Number != 5);
+	} while (Task_Number != 9);
 
 	return 0;
 }
